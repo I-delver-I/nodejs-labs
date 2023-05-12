@@ -23,4 +23,7 @@ import t4 from './4-task.js';
 // console.log(student.toString() === clonedStudent.toString());
 
 // TASK 4
+const cachedAdd = t4.cacheWrapper(t4.add);
+console.log(cachedAdd(2, 3, 5));
+console.log(cachedAdd(3, 2, 5));
 

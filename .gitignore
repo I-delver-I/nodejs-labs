@@ -103,4 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-pw-2/.eslintrc.cjs
+# User specific files
+.eslintrc.cjs
+.idea/
