@@ -105,4 +105,5 @@ dist
 
 # User specific files
 .eslintrc.cjs
+.eslintrc.js
 .idea/
