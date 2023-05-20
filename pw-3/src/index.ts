@@ -1,17 +1,16 @@
-// import * as t1 from './1-task';
-// import * as t2 from './2-task';
-// import * as t3 from './3-task';
-import * as t4 from './4-task';
+// Import t1 from './1-task.js';
+// import t2 from './2-task.js';
+// import t3 from './3-task.js';
+import t4 from './4-task.js';
 
 // TASK 1
-// // @ts-expect-error the function works in TS playground but not the project
 // console.log(t1.add(4)(6)());
 
 // TASK 2
 // console.log(t2.stringsAreAnagrams('hello', 'olleh'));
 
 // TASK 3
-//  type Bag = {
+// type Bag = {
 // 	color: string;
 // 	weightKg: number;
 // };

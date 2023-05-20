@@ -1,17 +1,19 @@
-type AddToSum = (number2: number) => number | AddToSum;
+type AddToSum = (number2?: number) => number | AddToSum;
 
-export const add = function (number: number): AddToSum {
-	let sum = number;
+function add(number: number): AddToSum {
+  let sum = number;
 
-	function addToSum(number2?: number): AddToSum | number {
-		if (number2 !== undefined) {
-			sum += number2;
+  const addToSum: AddToSum = function (numberToAdd?) {
+    if (numberToAdd !== undefined) {
+      sum += numberToAdd;
 
-			return addToSum;
-		}
+      return addToSum;
+    }
 
-		return sum;
-	}
+    return sum;
+  };
 
-	return addToSum;
-};
+  return addToSum;
+}
+
+export default {add};
