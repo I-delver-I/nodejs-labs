@@ -34,7 +34,17 @@ import t4 from './4-task.js';
 // console.log(JSON.stringify(student) === JSON.stringify(clonedStudent));
 
 // TASK 4
-const cachedAdd = t4.cacheWrapper(t4.add);
+function add(...numbers: number[]): number {
+  let sum = 0;
+
+  for (const number of numbers) {
+    sum += number;
+  }
+
+  return sum;
+}
+
+const cachedAdd = t4.cacheWrapper(add);
 console.log(cachedAdd(2, 3, 5));
 console.log(cachedAdd(4, 2, 5));
 console.log(cachedAdd(4, 2, 5));

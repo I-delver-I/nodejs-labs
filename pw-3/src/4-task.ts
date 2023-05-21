@@ -1,30 +1,20 @@
-type NumberParametersFunction = (...numbers: number[]) => number;
+type FunctionWithGenericParams<T extends unknown[], R> = (...args: T) => R;
 
-function add(...numbers: number[]) {
-  let sum = 0;
+function cacheWrapper<T extends unknown[], R>(func: FunctionWithGenericParams<T, R>): FunctionWithGenericParams<T, R> {
+  const cache = new Map<string, R>();
 
-  for (const number of numbers) {
-    sum += number;
-  }
+  const wrappedFunction: FunctionWithGenericParams<T, R> = (...args) => {
+    const joinedArgs = JSON.stringify(args);
 
-  return sum;
-}
-
-function cacheWrapper(func: NumberParametersFunction): NumberParametersFunction {
-  const cache: Record<string, number> = {};
-
-  const wrappedFunction: NumberParametersFunction = (...numbers) => {
-    const joinedNumbers = numbers.sort((a, b) => a - b).join(',');
-
-    if (Object.hasOwn(cache, joinedNumbers)) {
-      // The logging is applied for clearness
+    if (cache.has(joinedArgs)) {
+      // Logging the retrieval from cache for clarity
       console.log('Took from cache:');
 
-      return cache[joinedNumbers];
+      return cache.get(joinedArgs) as R;
     }
 
-    const result = func(...numbers);
-    cache[joinedNumbers] = result;
+    const result = func(...args);
+    cache.set(joinedArgs, result);
 
     return result;
   };
@@ -32,4 +22,4 @@ function cacheWrapper(func: NumberParametersFunction): NumberParametersFunction 
   return wrappedFunction;
 }
 
-export default {cacheWrapper, add};
+export default {cacheWrapper};
