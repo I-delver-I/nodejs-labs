@@ -104,8 +104,6 @@ dist
 .tern-port
 
 # User specific files
-.eslintrc.cjs
-.eslintrc.js
 .idea/
 lib/
 list.json_pages/
