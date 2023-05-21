@@ -45,6 +45,11 @@ function add(...numbers: number[]): number {
 }
 
 const cachedAdd = t4.cacheWrapper(add);
-console.log(cachedAdd(2, 3, 5));
-console.log(cachedAdd(4, 2, 5));
-console.log(cachedAdd(4, 2, 5));
+const functionsCountToCall = 102;
+cachedAdd(2, 3, 0);
+
+for (let i = 0; i < functionsCountToCall; i++) {
+  cachedAdd(2, 3, i);
+}
+
+cachedAdd(2, 3, 66);
