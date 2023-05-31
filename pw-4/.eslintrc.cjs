@@ -16,11 +16,13 @@ module.exports = {
 			rules: {
 				'@typescript-eslint/indent': ['error', 4],
 				"capitalized-comments": "off",
-			},
+			}
 		},
 	],
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
+	},
+	rules: {
 	},
 };
