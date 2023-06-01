@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import * as fs from 'node:fs/promises';
 
-const envFilePathFromRoot = './env/.env';
+const envFilePathFromRoot = './env/.env.example';
 
 export async function loadEnvFile() {
     try {
