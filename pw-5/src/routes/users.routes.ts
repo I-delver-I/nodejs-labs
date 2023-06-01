@@ -11,4 +11,4 @@ userRouter.get('/:userId', controller.get);
 userRouter.get('/', controller.get);
 
 userRouter.put('/:userId', updateMiddleware, controller.put);
-userRouter.delete('/:userId');
+userRouter.delete('/:userId', controller.remove);

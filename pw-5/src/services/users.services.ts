@@ -9,7 +9,7 @@ export async function get(userId?: number) {
     return Dao.getAllUsers();
 }
 
-export async function put(id: number, updatedData: PartialUser) {
+export async function put(id: number, updatedUserData: PartialUser) {
     const oldUser = await Dao.getUserById(id);
 
     if (!oldUser) {
@@ -18,8 +18,8 @@ export async function put(id: number, updatedData: PartialUser) {
 
     const updatedUser: User = {
         id,
-        username: updatedData.username ? updatedData.username : oldUser.username,
-        name: updatedData.name ? updatedData.name : undefined,
+        username: updatedUserData.username ? updatedUserData.username : oldUser.username,
+        name: updatedUserData.name ? updatedUserData.name : undefined,
     };
 
     return Dao.updateUser(updatedUser);
