@@ -4,32 +4,38 @@ import HttpError from '../shared/error.class.js';
 class UsersRepository {
     #nextUserId = 1;
 
-    #users: User[] = [];
+    #users = new Map<number, User>();
 
     public async removeUser(userId: number) {
-        const existingUserIndex = this.#users.findIndex(user => user.id === userId);
+        const existingUser = this.#users.get(userId);
 
-        if (existingUserIndex === -1) {
+        if (!existingUser) {
             throw new HttpError('User is not found', 404);
         }
 
-        this.#users.splice(existingUserIndex, 1);
+        this.#users.delete(userId);
 
         return 'User is removed';
     }
 
     public async updateUser(updatedUser: User) {
-        this.#users = this.#users.map(user => (user.id === updatedUser.id ? updatedUser : user));
+        const existingUser = this.#users.get(updatedUser.id);
+
+        if (!existingUser) {
+            throw new HttpError('User is not found', 404);
+        }
+
+        this.#users.set(updatedUser.id, updatedUser);
 
         return updatedUser;
     }
 
     public async getUserById(id: number) {
-        return this.#users.find(user => user.id === id);
+        return this.#users.get(id);
     }
 
     public async getAllUsers() {
-        return [...this.#users];
+        return [...this.#users.values()];
     }
 
     public async addUser(userToAdd: UserWithoutId) {
@@ -38,13 +44,19 @@ class UsersRepository {
         }
 
         userToAdd.id = this.#nextUserId++;
-        this.#users.push(userToAdd as User);
+        this.#users.set(userToAdd.id, userToAdd as User);
 
         return userToAdd as User;
     }
 
     public isUnique<T extends keyof User>(property: T, value: User[T]) {
-        return !this.#users.some(user => user[property] === value);
+        for (const user of this.#users.values()) {
+            if (user[property] === value) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
