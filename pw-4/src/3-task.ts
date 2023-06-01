@@ -1,5 +1,4 @@
-import fs from 'fs';
-import {promisify} from 'util';
+import fs from 'node:fs/promises';
 import path from 'path';
 import axios, {type AxiosResponse} from 'axios';
 import fse from 'fs-extra';
@@ -13,8 +12,8 @@ async function importHtmlContentToDir(dirPath: string, referencesList: string[])
 }
 
 async function createFile(filePath: string, content: string) {
-    const writeFile = promisify(fs.writeFile);
-    await writeFile(filePath, content);
+    await fs.writeFile(filePath, content);
+    console.log(`File "${filePath}" created successfully.`);
 }
 
 async function getHtmlContentByReferences(referencesList: string[]): Promise<string[]> {
@@ -25,31 +24,21 @@ async function getHtmlContentByReferences(referencesList: string[]): Promise<str
 }
 
 async function createDirectory(dirName: string, creationPath: string) {
-    const mkdir = promisify(fs.mkdir);
     const dirPath = path.join(creationPath, dirName);
 
-    await fse.emptyDir(dirPath);
     await fse.ensureDir(dirPath);
-    // Await mkdir(path.join(creationPath, dirName));
+    await fse.emptyDir(dirPath);
+    console.log(`Directory "${dirPath}" created successfully.`);
 }
 
 /**
  * @throws {Error} Throws an error if the specified path is wrong
  * @param filePath
  */
-async function readJsonFile(filePath: string): Promise<string[]> {
-    if (!path.basename(filePath).endsWith('.json')) {
-        throw new Error('The path specified doesn\'t lead to JSON file');
-    }
+async function readJsonFile(filePath: string) {
+    const fileData = await fs.readFile(filePath, 'utf-8');
 
-    let result: string[] = [];
-
-    const readFile = promisify(fs.readFile);
-    const data = await readFile(filePath, 'utf-8');
-
-    result = JSON.parse(data) as string[];
-
-    return result;
+    return JSON.parse(fileData) as string[];
 }
 
 export default {importHtmlContentToDir, readJsonFile, createDirectory};
