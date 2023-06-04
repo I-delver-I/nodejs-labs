@@ -9,7 +9,7 @@ export async function startServer() {
     await envConfig.loadEnvFile();
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const {PORT} = process.env;
-    const portToListen = parseInt(PORT, 10);
+    const portToListen = parseInt(PORT!, 10);
 
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
