@@ -106,3 +106,4 @@ dist
 # User specific files
 pw-2/.eslintrc.cjs
 .idea/
+database/
