@@ -4,7 +4,7 @@ import * as services from '../services/tasks.services.js';
 export async function get(req: Request, res: Response, next: NextFunction) {
     try {
         const taskId = Number(req.params.taskId);
-        const rows = await services.get(taskId) as Array<Record<string, unknown>>;
+        const rows = await services.get(taskId);
 
         if (!rows) {
             res.status(404).send('<h1>Unknown task id</h1>');
