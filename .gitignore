@@ -105,5 +105,5 @@ dist
 
 # User specific files
 .idea/
+pw-4/list.json_pages/
 lib/
-list.json_pages/
